@@ -3,7 +3,7 @@ export default function AssignmentRoutes(app) {
 
     app.put("/api/assignments/:aid", (req, res) => {
         const { aid } = req.params;
-        const assignmentIndex = db.modules.findIndex(
+        const assignmentIndex = db.assignments.findIndex(
           (m) => m._id === aid);
         db.assignments[assignmentIndex] = {
           ...db.assignments[assignmentIndex],
@@ -26,7 +26,7 @@ export default function AssignmentRoutes(app) {
           course: cid,
           _id: new Date().getTime().toString(),
         };
-        db.modules.push(newAssignment);
+        db.assignments.push(newAssignment);
         res.send(newAssignment);
       });
     
