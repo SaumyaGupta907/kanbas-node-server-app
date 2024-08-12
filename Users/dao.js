@@ -14,6 +14,10 @@ export const findUsersByPartialName = (partialName) => {
   };
 
   export const createUser = (user) => {
-    return model.create(user);
+      const newUser = {
+          _id: Date.now().toString(),
+          ...user
+      };
+      return model.create(newUser);
   }
   
