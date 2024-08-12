@@ -14,4 +14,4 @@ export const createModule = (cid, module) => {
     return model.create(newModule);
 }
 
-export const findModulesByCid = (cid) => model.findById(cid);
+export const findModulesByCid = (cid) => model.find({course: cid});
