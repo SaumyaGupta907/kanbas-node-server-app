@@ -1,13 +1,13 @@
 import * as dao from "./dao.js";
 let currentUser = null;
 export default function UserRoutes(app) {
-
-    const deleteUser = async (req, res) => { 
+  const deleteUser = async (req, res) => {
     const status = await dao.deleteUser(req.params.userId);
-      res.json(status);
-
+    res.json(status);
   };
+
   app.delete("/api/users/:userId", deleteUser);
+
   const findAllUsers = async (req, res) => {
     const { role, name } = req.query;
     if (role) {
@@ -25,26 +25,28 @@ export default function UserRoutes(app) {
 
     const users = await dao.findAllUsers();
     res.json(users);
-    return;
   };
-  app.get("/api/users", findAllUsers);
+
   const findUserById = async (req, res) => {
     const user = await dao.findUserById(req.params.userId);
     res.json(user);
     
    };
-   app.get("/api/users/:userId", findUserById);
+
   const signup = async (req, res) => { };
   const signin = async (req, res) => { };
   const signout = (req, res) => { };
   const profile = async (req, res) => { };
 
   const createUser = async (req, res) => {
-    const user = await dao.createUser(req.body);
+    const newUser = {
+      _id: Date.now().toString(),
+      ...req.body
+    };
+
+    const user = await dao.createUser(newUser);
     res.json(user);
   };
-
-  app.post("/api/users", createUser);
   // app.get("/api/users", findAllUsers);
   
   const updateUser = async (req, res) => {
@@ -53,8 +55,11 @@ export default function UserRoutes(app) {
     res.json(status);
   };
 
+
+  app.get("/api/users", findAllUsers);
   app.put("/api/users/:userId", updateUser);
-  
+  app.get("/api/users/:userId", findUserById);
+  app.post("/api/users", createUser);
   app.post("/api/users/signup", signup);
   app.post("/api/users/signin", signin);
   app.post("/api/users/signout", signout);

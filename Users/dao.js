@@ -14,7 +14,6 @@ export const findUsersByPartialName = (partialName) => {
   };
 
   export const createUser = (user) => {
-    delete user._id
     return model.create(user);
   }
   
