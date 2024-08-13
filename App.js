@@ -19,18 +19,17 @@ app.use(cors({
 }));
 
 const sessionOptions = {
-        secret: process.env.SESSION_SECRET || "kanbas"
+        secret: process.env.SESSION_SECRET || "kanbas",
+        resave: false,
+        saveUninitialized: false,
 };
 
 if (process.env.NODE_ENV !== "development") {
+        sessionOptions.proxy = true;
         sessionOptions.cookie = {
-            resave: false,
-            saveUninitialized: true,
-            proxy: true,
-            name: 'kanbas',
-            sameSite: "none",
-            secure: true,
-            domain: process.env.NODE_SERVER_DOMAIN,
+          sameSite: "none",
+          secure: true,
+          domain: process.env.NODE_SERVER_DOMAIN,
         };
 }
 
