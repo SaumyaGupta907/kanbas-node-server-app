@@ -1,5 +1,4 @@
 import * as dao from "./dao.js";
-import {findAssignByCid} from "./dao.js";
 
 export default function AssignmentRoutes(app) {
 
